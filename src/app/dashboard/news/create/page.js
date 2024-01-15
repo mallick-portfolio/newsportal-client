@@ -1,5 +1,6 @@
 "use client";
 
+import NewsEditor from "@/app/components/editor/NewsEditor";
 import { BreadcrumbItem, Breadcrumbs, Card, CardBody } from "@nextui-org/react";
 const NewsPage = () => {
   // Editor ref
@@ -20,7 +21,7 @@ const NewsPage = () => {
             </div>
           </div>
           <div className="mt-4">
-            {/* <NewsEditor /> */}
+            <NewsEditor />
           </div>
         </CardBody>
       </Card>
