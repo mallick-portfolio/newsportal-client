@@ -41,15 +41,6 @@ export const newsApi = createApi({
       }),
       invalidatesTags: ["category"],
     }),
-
-    // user login api
-    userLogin: builder.mutation({
-      query: (logindata) => ({
-        url: "/account/login/",
-        method: "POST",
-        body: logindata,
-      }),
-    }),
   }),
 });
 

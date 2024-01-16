@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 
 import rootReducer from "./rootReducer";
 import { accountApi } from "./api/accountApi";
+import { newsApi } from "./api/newsApi";
 
 const persistConfig = {
   key: "root",
@@ -30,7 +31,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([accountApi.middleware]),
+    }).concat([newsApi.middleware, accountApi.middleware]),
 });
 
 export const persistor = persistStore(store);
