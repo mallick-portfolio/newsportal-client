@@ -32,7 +32,6 @@ const Login = () => {
   // api response
   useEffect(() => {
     if (data && data?.success) {
-      console.log("if block");
       Cookies.set("auth_token", data?.token?.access);
       toast.success(data?.message, {
         autoClose: 2000,
@@ -40,14 +39,12 @@ const Login = () => {
       });
       router.push("/dashboard");
     } else if (data && data?.error) {
-      console.log("else block");
       toast.error(data?.message);
     }
   }, [data, router]);
 
   // submit handler
   const onSubmit = async (values) => {
-    console.log(values);
     await handleLogin(values);
   };
 

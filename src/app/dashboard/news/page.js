@@ -8,6 +8,8 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 import React from "react";
+import PostRow from "../components/news/PostRow";
+import DeletePost from "../components/news/DeletePostModal";
 
 const News = () => {
   return (
@@ -29,8 +31,12 @@ const News = () => {
               <Link href="/dashboard/news/create/">Add Post</Link>
             </Button>
           </div>
+          <div className="my-8">
+            <PostRow />
+          </div>
         </CardBody>
       </Card>
+      <DeletePost />
     </div>
   );
 };

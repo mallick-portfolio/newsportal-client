@@ -8,6 +8,7 @@ import {
   ListboxItem,
   Tooltip,
 } from "@nextui-org/react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -35,7 +36,6 @@ const DashboardSidebar = () => {
           <Listbox>
             {menus.map((menu) => (
               <ListboxItem
-                href={menu.url}
                 key={menu.id}
                 color="danger"
                 className={`${
@@ -44,13 +44,15 @@ const DashboardSidebar = () => {
                     : ""
                 }`}
               >
-                <Tooltip
-                  placement="right-end"
-                  showArrow={true}
-                  content="I am a tooltip"
-                >
-                  <p>{menu.title}</p>
-                </Tooltip>
+                <Link href={menu.url}>
+                  <Tooltip
+                    placement="right-end"
+                    showArrow={true}
+                    content="I am a tooltip"
+                  >
+                    <p>{menu.title}</p>
+                  </Tooltip>
+                </Link>
               </ListboxItem>
             ))}
           </Listbox>

@@ -72,7 +72,6 @@ const Register = () => {
 
   // submit button handler
   const onSubmit = async (values) => {
-    console.log(values);
     await handleFormSubmit(values);
   };
 

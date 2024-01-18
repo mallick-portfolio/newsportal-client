@@ -3,14 +3,12 @@
 import { useRef, useState } from "react";
 export default function DragAndDrop() {
   const [dragActive, setDragActive] = useState(false);
-  const inputRef = useRef (null);
+  const inputRef = useRef(null);
   const [files, setFiles] = useState < any > [];
 
   function handleChange(e) {
     e.preventDefault();
-    console.log("File has been added");
     if (e.target.files && e.target.files[0]) {
-      console.log(e.target.files);
       for (let i = 0; i < e.target.files["length"]; i++) {
         setFiles((prevState) => [...prevState, e.target.files[i]]);
       }

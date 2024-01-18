@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -15,36 +16,45 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineFileUpload } from "react-icons/md";
 import {
-  useAddPostMutation,
   useGetCategoriesQuery,
+  useGetPostByIdQuery,
+  useUpdatePostByIdMutation,
 } from "@/app/store/api/newsApi";
-import axios from "axios";
-import Cookies from "js-cookie";
 import Loading from "@/app/loading";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 const NewsPage = () => {
   const router = useRouter();
-  const inputFileRef = useRef();
-  const [image, setImage] = useState("");
   const [description, setDescription] = useState();
 
+  const params = useParams();
+  const { data: pData, isLoading: pLoading } = useGetPostByIdQuery(params?.id);
+
   const { data: cData, isLoading: cLoading } = useGetCategoriesQuery();
+
+  useEffect(() => {
+    if (pData && pData?.success) {
+      setDescription(pData?.data?.description);
+      // SetselectedCategory(new Set([pData?.data?.category?.id]));
+    }
+  }, [pData]);
+
   // Editor ref
   const initialValues = {
-    title: "",
-    category: null,
+    title: pData?.data?.title,
+    category: pData?.data?.category?.id,
   };
 
   // validation schema
   const validationSchema = yup.object({
     title: yup.string().required("Post title must required"),
-    category: yup.number().required("Category is required"),
+    category: yup.number().optional(),
   });
 
   // api call
-  const [handleCreatePost, { data, isError, isLoading }] = useAddPostMutation();
+  const [handleUpdate, { data, isError, isLoading }] =
+    useUpdatePostByIdMutation();
 
   useEffect(() => {
     if (data && data?.success) {
@@ -57,29 +67,7 @@ const NewsPage = () => {
   // submit handler
   const onSubmit = async (data) => {
     data["description"] = description;
-    data["image_url"] = image;
-    await handleCreatePost(data);
-  };
-
-  const onImageChangeCapture = async (e) => {
-    const form = new FormData();
-    const images = e.target.files;
-    for (let i = 0; i < images.length; i++) {
-      form.append("image", images[i]);
-    }
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/news/attachment/`,
-      form,
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("auth_token")}`,
-          "Content-Type": "multipart/form-data;",
-        },
-      }
-    );
-    if (res?.status === 200) {
-      setImage(res?.data?.data?.image);
-    }
+    await handleUpdate({ id: params?.id, data });
   };
 
   // formik
@@ -87,11 +75,12 @@ const NewsPage = () => {
     initialValues,
     onSubmit,
     validationSchema,
+    enableReinitialize: true,
   });
   const { errors, values, handleChange, touched, handleSubmit, setFieldValue } =
     formik;
 
-  if (cLoading) {
+  if (cLoading || (pLoading && !pData)) {
     return <Loading />;
   }
 
@@ -108,7 +97,7 @@ const NewsPage = () => {
           <div className="flex w-full justify-between items-center">
             <div>
               <h4 className="text-lg font-semibold text-primary-500">
-                Create new post
+                Edit post
               </h4>
             </div>
             <div>
@@ -136,10 +125,13 @@ const NewsPage = () => {
                 }`}
               />
             </div>
-            <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+            <div className="flex w-full flex-col  gap-4">
+              <p className="text-danger-500">
+                Current selected Category: {pData?.data?.category?.name}
+              </p>
               <Select
-                value={values.category}
                 variant="bordered"
+                value={values.category}
                 name="category"
                 onChange={handleChange}
                 isInvalid={errors.category && touched.category}
@@ -165,7 +157,7 @@ const NewsPage = () => {
               setDescription={setDescription}
               description={description}
             />
-            <div className="my-4">
+            {/* <div className="my-4">
               <h3>Upload feature image</h3>
               {image ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -194,14 +186,9 @@ const NewsPage = () => {
               >
                 Upload
               </Button>
-            </div>
-            <Button
-              type="submit"
-              color="success"
-              className="text-white"
-              // endContent={<MdOutlineFileUpload />}
-            >
-              Save
+            </div> */}
+            <Button type="submit" color="success" className="text-white mt-5">
+              Update
             </Button>
           </form>
         </CardBody>
