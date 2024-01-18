@@ -10,6 +10,7 @@ import Link from "next/link";
 import React from "react";
 import PostRow from "../components/news/PostRow";
 import DeletePost from "../components/news/DeletePostModal";
+import isAdmin from "@/app/lib/utils/isAdmin";
 
 const News = () => {
   return (
@@ -41,4 +42,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default isAdmin(News);

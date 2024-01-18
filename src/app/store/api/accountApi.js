@@ -64,4 +64,9 @@ export const accountApi = createApi({
 });
 
 // Export the auto-generated hook for the `getPosts` query endpoint
-export const { useUserLoginMutation, useUserRegisterMutation } = accountApi;
+export const {
+  useUserLoginMutation,
+  useUserRegisterMutation,
+  useUserLogoutMutation,
+  useGetMeQuery,
+} = accountApi;

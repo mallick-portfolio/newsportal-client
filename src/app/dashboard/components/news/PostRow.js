@@ -18,6 +18,8 @@ import {
   setSelectedItem,
   setShowDeletePostModal,
 } from "@/app/store/reducer/dashboardSlice";
+import Image from "next/image";
+import config from "@/app/lib/utils/config";
 
 export default function PostRow() {
   const dispatch = useDispatch();
@@ -29,9 +31,11 @@ export default function PostRow() {
       <TableRow key={post?.id}>
         <TableCell>{post?.id}</TableCell>
         <TableCell>
-          <img
-            className="w-24 h-auto rounded-md"
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + post?.image_url}
+          <Image
+            width={100}
+            height={10}
+            className="max-w-12 rounded-md"
+            src={config.image_domain + post?.image_url}
             alt=""
           />
         </TableCell>

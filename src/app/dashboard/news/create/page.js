@@ -29,7 +29,7 @@ const NewsPage = () => {
   const router = useRouter();
   const inputFileRef = useRef();
   const [image, setImage] = useState("");
-  const [description, setDescription] = useState();
+  const [isImage, setIsImage] = useState(true);
 
   const { data: cData, isLoading: cLoading } = useGetCategoriesQuery();
   // Editor ref
@@ -61,7 +61,11 @@ const NewsPage = () => {
   const onSubmit = async (data) => {
     // data["description"] = description;
     data["image_url"] = image;
-    await handleCreatePost(data);
+    if (!image || image == "") {
+      setIsImage(false);
+    } else {
+      await handleCreatePost(data);
+    }
   };
 
   const onImageChangeCapture = async (e) => {
@@ -82,6 +86,7 @@ const NewsPage = () => {
     );
     if (res?.status === 200) {
       setImage(res?.data?.data?.image);
+      setIsImage(true);
     }
   };
 
@@ -193,6 +198,9 @@ const NewsPage = () => {
             /> */}
             <div className="my-4">
               <h3>Upload feature image</h3>
+              <p className="text-danger-500 my-2">
+                {!isImage && "Image must required"}
+              </p>
               {image ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img

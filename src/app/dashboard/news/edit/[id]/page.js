@@ -12,6 +12,7 @@ import {
   Input,
   Select,
   SelectItem,
+  Textarea,
 } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineFileUpload } from "react-icons/md";
@@ -24,7 +25,8 @@ import Loading from "@/app/loading";
 
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-const NewsPage = () => {
+import Link from "next/link";
+const EditPost = () => {
   const router = useRouter();
   const [description, setDescription] = useState();
 
@@ -58,7 +60,7 @@ const NewsPage = () => {
 
   useEffect(() => {
     if (data && data?.success) {
-      router.push("/dashboard/news/");
+      // router.push("/dashboard/news/");
     } else if (data && !data?.success) {
       toast.error(data?.message);
     }
@@ -101,7 +103,9 @@ const NewsPage = () => {
               </h4>
             </div>
             <div>
-              <Button color="danger">Submit</Button>
+              <Link href={"/dashboard/news/"}>
+                <Button color="danger">Back</Button>
+              </Link>
             </div>
           </div>
           <form
@@ -130,8 +134,8 @@ const NewsPage = () => {
                 Current selected Category: {pData?.data?.category?.name}
               </p>
               <Select
-                variant="bordered"
                 value={values.category}
+                variant="bordered"
                 name="category"
                 onChange={handleChange}
                 isInvalid={errors.category && touched.category}
@@ -153,10 +157,33 @@ const NewsPage = () => {
                 ))}
               </Select>
             </div>
-            <NewsEditor
+            <div className="my-5">
+              <Textarea
+                label="Description"
+                placeholder="Enter your description"
+                className=""
+                value={values.description}
+                variant="bordered"
+                name="description"
+                onChange={handleChange}
+                isInvalid={errors.description && touched.description}
+                type="text"
+                color={
+                  errors.description && touched.description
+                    ? "danger"
+                    : "default"
+                }
+                errorMessage={`${
+                  errors.description && touched.description
+                    ? errors.description
+                    : ""
+                }`}
+              />
+            </div>
+            {/* <NewsEditor
               setDescription={setDescription}
               description={description}
-            />
+            /> */}
             {/* <div className="my-4">
               <h3>Upload feature image</h3>
               {image ? (
@@ -197,4 +224,4 @@ const NewsPage = () => {
   );
 };
 
-export default NewsPage;
+export default EditPost;
