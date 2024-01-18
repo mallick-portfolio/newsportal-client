@@ -111,6 +111,17 @@ export const newsApi = createApi({
       }),
       invalidatesTags: ["category"],
     }),
+    addPostRating: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/news/public/${id}/rating/`,
+        method: "POST",
+        body: data,
+        headers: {
+          Authorization: `Bearer ${Cookies.get("auth_token")}`,
+        },
+      }),
+      invalidatesTags: ["post"],
+    }),
   }),
 });
 
@@ -124,4 +135,5 @@ export const {
   useGetPostByIdQuery,
   useDeletePostByIdMutation,
   useUpdatePostByIdMutation,
+  useAddPostRatingMutation,
 } = newsApi;

@@ -1,3 +1,6 @@
+import Cookies from "js-cookie";
+import config from "../utils/config";
+
 export const getPosts = async (query) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/news/public/${query ? query : ""}`,
@@ -17,6 +20,22 @@ export const getById = async (id) => {
       next: { revalidate: 10 },
     }
   );
+  if (!res.ok) {
+    throw new Error("Failed to fetch res");
+  }
+  return res.json();
+};
+export const addRating = async (id, data) => {
+  const res = await fetch(`${config.api_url}/news/public/${id}/rating/`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${Cookies.get("auth_token")}`,
+    },
+  });
+  console.log("i am from ", res);
   if (!res.ok) {
     throw new Error("Failed to fetch res");
   }
