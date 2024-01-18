@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 
-const NewsEditor = ({ value, setValue }) => {
+const NewsEditor = ({ setDescription, description }) => {
   const ReactQuill = useMemo(
     () => dynamic(() => import("react-quill"), { ssr: false }),
     []
@@ -52,8 +52,8 @@ const NewsEditor = ({ value, setValue }) => {
         <ReactQuill
           // className={styles.editor}
           theme={"snow"}
-          onChange={(e) => setValue(e)}
-          value={value}
+          onChange={(e) => setDescription(e)}
+          value={description}
           modules={modules}
           formats={formats}
           bounds={"#root"}

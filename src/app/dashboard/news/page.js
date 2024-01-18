@@ -1,3 +1,4 @@
+"use client";
 import {
   BreadcrumbItem,
   Breadcrumbs,
@@ -5,6 +6,7 @@ import {
   Card,
   CardBody,
 } from "@nextui-org/react";
+import Link from "next/link";
 import React from "react";
 
 const News = () => {
@@ -20,12 +22,12 @@ const News = () => {
           <div className="flex w-full justify-between items-center">
             <div>
               <h4 className="text-lg font-semibold text-primary-500">
-                Create new post
+                List of Posts
               </h4>
             </div>
-            <div>
-              <Button color="danger">Submit</Button>
-            </div>
+            <Button color="danger">
+              <Link href="/dashboard/news/create/">Add Post</Link>
+            </Button>
           </div>
         </CardBody>
       </Card>

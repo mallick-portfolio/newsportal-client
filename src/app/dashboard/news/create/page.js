@@ -9,31 +9,77 @@ import {
   Card,
   CardBody,
   Input,
+  Select,
+  SelectItem,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineFileUpload } from "react-icons/md";
+import {
+  useAddPostMutation,
+  useGetCategoriesQuery,
+} from "@/app/store/api/newsApi";
+import axios from "axios";
+import Cookies from "js-cookie";
+import Loading from "@/app/loading";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 const NewsPage = () => {
+  const router = useRouter();
+  const inputFileRef = useRef();
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState();
+
+  const { data: cData, isLoading: cLoading } = useGetCategoriesQuery();
   // Editor ref
-  const [value, setValue] = useState("");
   const initialValues = {
     title: "",
-    description: "",
+    category: null,
   };
 
   // validation schema
   const validationSchema = yup.object({
-    email: yup
-      .string()
-      .nullable()
-      .email("Must be a valid email")
-      .required("Email must required"),
-    password: yup.string().required("Password must required"),
+    title: yup.string().required("Post title must required"),
+    category: yup.number().required("Category is required"),
   });
 
+  // api call
+  const [handleCreatePost, { data, isError, isLoading }] = useAddPostMutation();
+
+  useEffect(() => {
+    if (data && data?.success) {
+      router.push("/dashboard/news/");
+    } else if (data && !data?.success) {
+      toast.error(data?.message);
+    }
+  }, [data, router]);
+
   // submit handler
-  const onSubmit = async (values) => {
-    console.log(values);
-    await handleLogin(values);
+  const onSubmit = async (data) => {
+    data["description"] = description;
+    data["image"] = image;
+    await handleCreatePost(data);
+  };
+
+  const onImageChangeCapture = async (e) => {
+    const form = new FormData();
+    const images = e.target.files;
+    for (let i = 0; i < images.length; i++) {
+      form.append("image", images[i]);
+    }
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/news/attachment/`,
+      form,
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("auth_token")}`,
+          "Content-Type": "multipart/form-data;",
+        },
+      }
+    );
+    if (res?.status === 200) {
+      setImage(res?.data?.data?.image);
+    }
   };
 
   // formik
@@ -42,7 +88,13 @@ const NewsPage = () => {
     onSubmit,
     validationSchema,
   });
-  const { errors, values, handleChange, touched, handleSubmit } = formik;
+  const { errors, values, handleChange, touched, handleSubmit, setFieldValue } =
+    formik;
+
+  console.log(data, isLoading, isError);
+  if (cLoading) {
+    return <Loading />;
+  }
 
   // Editor ref
   return (
@@ -64,30 +116,95 @@ const NewsPage = () => {
               <Button color="danger">Submit</Button>
             </div>
           </div>
-          <div className="mt-4">
+          <form
+            onSubmit={handleSubmit}
+            className="mt-4"
+            enctype="multipart/form-data"
+          >
             <div className="my-4">
               <Input
-                name="title"
-                onChange={handleChange}
                 value={values.title}
                 variant="bordered"
+                name="title"
+                onChange={handleChange}
+                isInvalid={errors.title && touched.title}
                 type="text"
+                color={errors.title && touched.title ? "danger" : "default"}
                 label="Post title"
                 placeholder="Enter your post title"
+                errorMessage={`${
+                  errors.title && touched.title ? errors.title : ""
+                }`}
               />
             </div>
-            <NewsEditor />
+            <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+              <Select
+                value={values.category}
+                variant="bordered"
+                name="category"
+                onChange={handleChange}
+                isInvalid={errors.category && touched.category}
+                type="text"
+                color={
+                  errors.category && touched.category ? "danger" : "default"
+                }
+                label="Post category"
+                placeholder="Select post category"
+                errorMessage={`${
+                  errors.category && touched.category ? errors.category : ""
+                }`}
+                className=""
+              >
+                {cData?.data?.map((category) => (
+                  <SelectItem key={category?.id} value={category?.name}>
+                    {category.name}
+                  </SelectItem>
+                ))}
+              </Select>
+            </div>
+            <NewsEditor
+              setDescription={setDescription}
+              description={description}
+            />
             <div className="my-4">
               <h3>Upload feature image</h3>
+              {image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  width={50}
+                  height={50}
+                  src={process.env.NEXT_PUBLIC_IMAGE_URL + image}
+                  alt="uploaded image"
+                />
+              ) : (
+                ""
+              )}
+              <input
+                type="file"
+                name="image"
+                accept=".png, .jpeg"
+                hidden
+                ref={inputFileRef}
+                onChange={(e) => onImageChangeCapture(e)}
+              />
               <Button
+                onClick={() => inputFileRef.current.click()}
                 color="primary"
                 className="text-white"
                 endContent={<MdOutlineFileUpload />}
               >
-                Take a photo
+                Upload
               </Button>
             </div>
-          </div>
+            <Button
+              type="submit"
+              color="success"
+              className="text-white"
+              // endContent={<MdOutlineFileUpload />}
+            >
+              Save
+            </Button>
+          </form>
         </CardBody>
       </Card>
     </div>

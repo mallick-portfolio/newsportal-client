@@ -32,14 +32,15 @@ const Login = () => {
   // api response
   useEffect(() => {
     if (data && data?.success) {
+      console.log("if block");
       Cookies.set("auth_token", data?.token?.access);
       toast.success(data?.message, {
         autoClose: 2000,
         position: "bottom-right",
       });
       router.push("/dashboard");
-    }
-    if (data && !data?.success) {
+    } else if (data && data?.error) {
+      console.log("else block");
       toast.error(data?.message);
     }
   }, [data, router]);
