@@ -12,8 +12,13 @@ import {
 } from "@nextui-org/react";
 import img1 from "../../public/images/fruit-1.jpeg";
 import SidebarPosts from "./components/home/SidebarPosts";
+import { getPosts } from "./lib/post/postData";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const data = await getPosts();
+  const posts = data?.data;
+
   return (
     <>
       <Header />
@@ -23,19 +28,36 @@ export default function Home() {
             <Card>
               <CardBody>
                 <div className="flex justify-center">
-                  <Image
-                    isZoomed
-                    className="w-full"
-                    alt="NextUI Fruit Image with Zoom"
-                    src={img1}
-                  />
+                  {posts?.[0]?.image_url ? (
+                    <Image
+                      width={500}
+                      height={200}
+                      // className="w-full h-full"
+                      quality={70}
+                      priority={true}
+                      placeholder="empty"
+                      alt="NextUI Fruit Image with Zoom"
+                      src={
+                        process.env.NEXT_PUBLIC_IMAGE_URL +
+                        posts?.[0]?.image_url
+                      }
+                    />
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <h1 className="text-4xl my-5 font-semibold">
-                  Make beautiful websites regardless of your design experience.
+                  <Link href={`/posts/${posts?.[0]?.id}`}>
+                    {posts?.[0]?.title}
+                  </Link>
                 </h1>
-                <p>
-                  Make beautiful websites regardless of your design experience.
-                </p>
+                <div className="">
+                  {posts?.[0]?.description?.slice(0, 100)}...
+                </div>
+                {/* <div
+                  className="mt-5"
+                  dangerouslySetInnerHTML={{ __html: posts?.[0]?.description }}
+                ></div> */}
               </CardBody>
             </Card>
           </div>

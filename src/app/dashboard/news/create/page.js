@@ -11,6 +11,7 @@ import {
   Input,
   Select,
   SelectItem,
+  Textarea,
 } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineFileUpload } from "react-icons/md";
@@ -35,12 +36,14 @@ const NewsPage = () => {
   const initialValues = {
     title: "",
     category: null,
+    description: "",
   };
 
   // validation schema
   const validationSchema = yup.object({
     title: yup.string().required("Post title must required"),
     category: yup.number().required("Category is required"),
+    description: yup.string().required("Description is required"),
   });
 
   // api call
@@ -56,7 +59,7 @@ const NewsPage = () => {
 
   // submit handler
   const onSubmit = async (data) => {
-    data["description"] = description;
+    // data["description"] = description;
     data["image_url"] = image;
     await handleCreatePost(data);
   };
@@ -161,10 +164,33 @@ const NewsPage = () => {
                 ))}
               </Select>
             </div>
-            <NewsEditor
+            <div className="my-5">
+              <Textarea
+                label="Description"
+                placeholder="Enter your description"
+                className=""
+                value={values.description}
+                variant="bordered"
+                name="description"
+                onChange={handleChange}
+                isInvalid={errors.description && touched.description}
+                type="text"
+                color={
+                  errors.description && touched.description
+                    ? "danger"
+                    : "default"
+                }
+                errorMessage={`${
+                  errors.description && touched.description
+                    ? errors.description
+                    : ""
+                }`}
+              />
+            </div>
+            {/* <NewsEditor
               setDescription={setDescription}
               description={description}
-            />
+            /> */}
             <div className="my-4">
               <h3>Upload feature image</h3>
               {image ? (

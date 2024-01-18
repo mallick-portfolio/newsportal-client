@@ -5,7 +5,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   Button,
   NavbarMenuToggle,
   NavbarMenu,
@@ -16,6 +15,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@nextui-org/react";
+import Link from "next/link";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,13 +34,14 @@ export default function Header() {
   ];
 
   return (
-    <div className="bg-slate-400">
+    <div className="">
       <Navbar
+        position="sticky"
         maxWidth="full"
         className="container px-8"
         height={"5rem"}
         onMenuOpenChange={setIsMenuOpen}
-        isBlurred={true}
+        shouldHideOnScroll
       >
         <NavbarContent>
           <NavbarMenuToggle
@@ -49,7 +50,9 @@ export default function Header() {
           />
           <NavbarBrand>
             {/* <AcmeLogo /> */}
-            <p className="font-bold text-inherit">ACME</p>
+            <Link href="/">
+              <p className="font-bold text-inherit">NewsPort</p>
+            </Link>
           </NavbarBrand>
         </NavbarContent>
 

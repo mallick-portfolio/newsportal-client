@@ -37,7 +37,8 @@ export default function PostRow() {
         </TableCell>
         <TableCell>{post?.title}</TableCell>
         <TableCell>
-          <div dangerouslySetInnerHTML={{ __html: post?.description }}></div>
+          <div>{post?.description?.slice(0, 80)}</div>
+          {/* <div dangerouslySetInnerHTML={{ __html: post?.description }}></div> */}
         </TableCell>
         <TableCell>
           <div className="relative flex items-center gap-2">

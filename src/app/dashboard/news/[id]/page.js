@@ -46,9 +46,10 @@ const PostDetails = () => {
               alt="Post details"
             />
             <h2 className="text-3xl font-semibold my-5">{data?.data?.title}</h2>
-            <div
+            <div>{data?.data?.description}</div>
+            {/* <div
               dangerouslySetInnerHTML={{ __html: data?.data?.description }}
-            ></div>
+            ></div> */}
           </div>
         </CardBody>
       </Card>
