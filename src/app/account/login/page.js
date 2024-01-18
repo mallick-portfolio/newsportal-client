@@ -7,6 +7,7 @@ import { useUserLoginMutation } from "@/app/store/api/accountApi";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 const Login = () => {
   const router = useRouter();
@@ -99,6 +100,10 @@ const Login = () => {
               <Button type="submit" isLoading={isLoading} color="primary">
                 Submit
               </Button>
+              <div>
+                Don`t have an accout.{" "}
+                <Link className="text-primary-500" href={"/account/register"}>Register</Link>
+              </div>
             </CardBody>
           </form>
         </Card>

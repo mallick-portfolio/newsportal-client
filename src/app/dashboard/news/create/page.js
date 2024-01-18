@@ -25,6 +25,7 @@ import Loading from "@/app/loading";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import isAdmin from "@/app/lib/utils/isAdmin";
 const NewsPage = () => {
   const router = useRouter();
   const inputFileRef = useRef();
@@ -244,4 +245,4 @@ const NewsPage = () => {
   );
 };
 
-export default NewsPage;
+export default isAdmin(NewsPage);

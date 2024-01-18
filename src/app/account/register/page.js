@@ -15,6 +15,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useUserRegisterMutation } from "@/app/store/api/accountApi";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Register = () => {
   const router = useRouter();
@@ -244,6 +245,12 @@ const Register = () => {
               <Button type="submit" isLoading={isLoading} color="primary">
                 Submit
               </Button>
+              <div>
+                Already have and account.{" "}
+                <Link className="text-primary-500" href={"/account/login"}>
+                  Login
+                </Link>
+              </div>
             </CardBody>
           </form>
         </Card>

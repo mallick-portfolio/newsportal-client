@@ -1,7 +1,7 @@
 import Header from "@/app/components/shared/Header";
 import { getById } from "@/app/lib/post/postData";
 import config from "@/app/lib/utils/config";
-import { Chip } from "@nextui-org/react";
+import { Chip, Textarea } from "@nextui-org/react";
 import Image from "next/image";
 import React from "react";
 
@@ -23,8 +23,15 @@ const PostDetails = async ({ params }) => {
         <Chip className="mt-5" variant="solid" color="danger">
           #{post?.category?.name}
         </Chip>
-
         <div>{post?.description}</div>
+        <div className="my-5">
+          <Textarea
+            variant="bordered"
+            label="Comment"
+            placeholder="Enter your comment..."
+            className="max-w-xs"
+          />
+        </div>
       </div>
     </div>
   );

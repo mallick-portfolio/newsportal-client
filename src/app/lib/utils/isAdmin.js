@@ -31,7 +31,7 @@ const isAdmin = (Component) => {
             dispatch(setUser(data?.data));
           } else {
             dispatch(setUser({}));
-            router.push("/account/login");
+            router.push("/dashboard/profile/");
           }
         } else {
           dispatch(setUser({}));

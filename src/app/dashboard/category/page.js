@@ -14,10 +14,11 @@ import { FaPlus } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import CreateCategory from "../components/category/CreateCategory";
 import { setShowCreateCategoryModal } from "@/app/store/reducer/dashboardSlice";
+import isAdmin from "@/app/lib/utils/isAdmin";
 
 const Category = () => {
   const dispatch = useDispatch();
-  const { showCreateCategoryModal } = useSelector((state) => state.dashboard);
+
   return (
     <div className="pr-6 ">
       <Card>
@@ -53,4 +54,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default isAdmin(Category);

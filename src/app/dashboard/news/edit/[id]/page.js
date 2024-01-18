@@ -26,6 +26,7 @@ import Loading from "@/app/loading";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import isAdmin from "@/app/lib/utils/isAdmin";
 const EditPost = () => {
   const router = useRouter();
   const [description, setDescription] = useState();
@@ -224,4 +225,4 @@ const EditPost = () => {
   );
 };
 
-export default EditPost;
+export default isAdmin(EditPost);
