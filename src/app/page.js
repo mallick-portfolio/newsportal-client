@@ -14,6 +14,7 @@ import img1 from "../../public/images/fruit-1.jpeg";
 import SidebarPosts from "./components/home/SidebarPosts";
 import { getPosts } from "./lib/post/postData";
 import Link from "next/link";
+import GalleryPost from "./components/home/GalleryPost";
 
 export default async function Home() {
   const data = await getPosts();
@@ -65,6 +66,10 @@ export default async function Home() {
             <SidebarPosts />
           </div>
         </div>
+        <h4 className="text-center text-2xl font-semibold my-12">
+          Post by category
+        </h4>
+        <GalleryPost />
       </div>
     </>
   );

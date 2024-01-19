@@ -1,16 +1,14 @@
 "use client";
 import { addRating } from "@/app/lib/post/postData";
 import { getUser } from "@/app/lib/user/userData";
-import config from "@/app/lib/utils/config";
-import { useAddPostRatingMutation } from "@/app/store/api/newsApi";
 import { Button, Select, SelectItem, Textarea } from "@nextui-org/react";
-import axios from "axios";
-import Cookies from "js-cookie";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const PostComment = ({ post }) => {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
@@ -25,7 +23,13 @@ const PostComment = ({ post }) => {
       comment: comment,
     };
     const res = await addRating(post?.id, data);
-    console.log("res", res);
+    console.log("res", res?.success);
+    if (res?.success) {
+      toast.success(res?.message);
+      setComment("");
+      setRating(0);
+      router.refresh();
+    }
 
     // const res = await axios.post(
     //   `${config.api_url}/news/public/${post?.id}/rating/`,
@@ -84,6 +88,7 @@ const PostComment = ({ post }) => {
           </Select>
           <Textarea
             onChange={(e) => setComment(e.target.value)}
+            value={comment}
             variant="bordered"
             label="Comment"
             placeholder="Enter your comment..."

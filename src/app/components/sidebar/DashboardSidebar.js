@@ -31,9 +31,9 @@ const DashboardSidebar = () => {
   const pathName = usePathname();
   const menus = [
     { id: 0, title: "Go Dashboard", url: "/dashboard" },
-    { id: 1, title: "Category", url: "/dashboard/category" },
+    // { id: 1, title: "Category", url: "/dashboard/category" },
     { id: 2, title: "News", url: "/dashboard/news" },
-    { id: 3, title: "Users", url: "/dashboard/category" },
+    // { id: 3, title: "Users", url: "/dashboard/category" },
   ];
   return (
     <Card className="h-screen w-2/12 top-0 left-0">

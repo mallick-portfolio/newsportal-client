@@ -26,15 +26,18 @@ export const getById = async (id) => {
   return res.json();
 };
 export const addRating = async (id, data) => {
-  const res = await fetch(`${config.api_url}/news/public/${id}/rating/`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${Cookies.get("auth_token")}`,
-    },
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/news/public/${id}/rating/`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("auth_token")}`,
+      },
+    }
+  );
   console.log("i am from ", res);
   if (!res.ok) {
     throw new Error("Failed to fetch res");

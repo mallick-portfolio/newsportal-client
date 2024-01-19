@@ -20,10 +20,15 @@ import {
 } from "@/app/store/reducer/dashboardSlice";
 import Image from "next/image";
 import config from "@/app/lib/utils/config";
+import Loading from "@/app/loading";
 
 export default function PostRow() {
   const dispatch = useDispatch();
-  const { data } = useGetPostsQuery();
+  const { data, isLoading } = useGetPostsQuery();
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   let categoryLog;
   if (data && data?.data?.length) {
@@ -35,7 +40,7 @@ export default function PostRow() {
             width={100}
             height={10}
             className="max-w-12 rounded-md"
-            src={config.image_domain + post?.image_url}
+            src={process.env.NEXT_PUBLIC_IMAGE_URL + post?.image_url}
             alt=""
           />
         </TableCell>

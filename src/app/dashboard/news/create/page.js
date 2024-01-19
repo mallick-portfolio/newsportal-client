@@ -216,7 +216,7 @@ const NewsPage = () => {
               <input
                 type="file"
                 name="image"
-                accept=".png, .jpeg"
+                accept=".png, .jpeg, .jpg,  .jfif, .pjpeg, .pjp, .webp"
                 hidden
                 ref={inputFileRef}
                 onChange={(e) => onImageChangeCapture(e)}
