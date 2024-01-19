@@ -26,7 +26,7 @@ const SidebarPosts = () => {
   return (
     <Tabs onSelectionChange={setSelected} aria-label="Options">
       {categories?.map((category) => (
-        <Tab key={category?.name} title={category?.name}>
+        <Tab key={category?.slug} value={category?.slug} title={category?.name}>
           <Card>
             <CardBody>
               {posts?.slice(0, 4)?.map((post) => (

@@ -3,6 +3,8 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "./components/shared/Header";
+import Footer from "./components/shared/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 

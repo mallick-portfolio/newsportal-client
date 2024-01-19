@@ -15,6 +15,7 @@ import SidebarPosts from "./components/home/SidebarPosts";
 import { getPosts } from "./lib/post/postData";
 import Link from "next/link";
 import GalleryPost from "./components/home/GalleryPost";
+import Footer from "./components/shared/Footer";
 
 export default async function Home() {
   const data = await getPosts();
@@ -71,6 +72,7 @@ export default async function Home() {
         </h4>
         <GalleryPost />
       </div>
+      <Footer />
     </>
   );
 }

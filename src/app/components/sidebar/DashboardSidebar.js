@@ -19,7 +19,6 @@ import { toast } from "react-toastify";
 const DashboardSidebar = () => {
   const router = useRouter();
   const [handleLogout, { data, isLoading }] = useUserLogoutMutation();
-  console.log(data);
 
   useEffect(() => {
     if (data && data?.success) {

@@ -38,7 +38,6 @@ export const addRating = async (id, data) => {
       },
     }
   );
-  console.log("i am from ", res);
   if (!res.ok) {
     throw new Error("Failed to fetch res");
   }

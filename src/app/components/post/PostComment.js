@@ -23,7 +23,6 @@ const PostComment = ({ post }) => {
       comment: comment,
     };
     const res = await addRating(post?.id, data);
-    console.log("res", res?.success);
     if (res?.success) {
       toast.success(res?.message);
       setComment("");

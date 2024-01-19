@@ -9,7 +9,6 @@ import { useGetMeQuery } from "@/app/store/api/accountApi";
 const isAuth = (Component) => {
   return function AuthComponent(props) {
     const { data, isLoading, isError } = useGetMeQuery();
-    console.log("data f rom isua", data?.data);
     const router = useRouter();
     const dispatch = useDispatch();
 

@@ -27,7 +27,7 @@ const GalleryPost = () => {
     <div className="mx-auto flex justify-center flex-col items-center">
       <Tabs onSelectionChange={setSelected} aria-label="Options">
         {categories?.map((category) => (
-          <Tab key={category?.name} title={category?.name}>
+          <Tab key={category?.slug} title={category?.name}>
             <div className="grid grid-cols-3 gap-4">
               {posts?.map((post) => (
                 <div key={post?.id}>
@@ -46,7 +46,9 @@ const GalleryPost = () => {
                             }
                           />
                         </div>
-                        <p className="text-primary-500">#{post?.category?.name}</p>
+                        <p className="text-primary-500">
+                          #{post?.category?.name}
+                        </p>
                         <div className="">
                           <Link href={`/posts/${post?.id}`}>
                             <h3 className="text-lg font-semibold">

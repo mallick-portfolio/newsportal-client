@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 const Dashboard = async () => {
   const { user } = useSelector((state) => state.global);
-  console.log(user);
 
   return (
     <div>
