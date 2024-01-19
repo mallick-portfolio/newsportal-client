@@ -5,12 +5,15 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useUserLoginMutation } from "@/app/store/api/accountApi";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const Login = () => {
   const router = useRouter();
+  const { user } = useSelector((state) => state.global);
+
   // initial values
   const initialValues = {
     email: "",
@@ -56,6 +59,9 @@ const Login = () => {
     validationSchema,
   });
   const { errors, values, handleChange, touched, handleSubmit } = formik;
+  if (user?.id && Cookies.get("auth_token")) {
+    redirect("/dashboard");
+  }
   return (
     <div className="h-screen flex justify-center items-center">
       <div className="flex justify-center h-auto mt-10 ">
@@ -102,7 +108,9 @@ const Login = () => {
               </Button>
               <div>
                 Don`t have an accout.{" "}
-                <Link className="text-primary-500" href={"/account/register"}>Register</Link>
+                <Link className="text-primary-500" href={"/account/register"}>
+                  Register
+                </Link>
               </div>
             </CardBody>
           </form>

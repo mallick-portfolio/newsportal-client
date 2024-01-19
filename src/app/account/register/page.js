@@ -14,13 +14,16 @@ import * as Yup from "yup";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useUserRegisterMutation } from "@/app/store/api/accountApi";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
+  const { user } = useSelector((state) => state.global);
 
   // initial values
   const initialValues = {
@@ -83,6 +86,9 @@ const Register = () => {
     validationSchema,
   });
   const { errors, values, handleChange, touched, handleSubmit } = formik;
+  if (user?.id && Cookies.get("auth_token")) {
+    redirect("/dashboard");
+  }
 
   return (
     <div className="h-screen flex justify-center items-center">

@@ -1,3 +1,4 @@
+import Footer from "@/app/components/shared/Footer";
 import Header from "@/app/components/shared/Header";
 import { getPosts } from "@/app/lib/post/postData";
 import { Card, CardBody } from "@nextui-org/react";
@@ -43,6 +44,7 @@ const NewsByCategory = async ({ params }) => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
