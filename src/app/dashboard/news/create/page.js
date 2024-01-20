@@ -76,7 +76,7 @@ const NewsPage = () => {
       form.append("image", images[i]);
     }
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/news/attachment/`,
+      `https://newsportal-hdb5.onrender.com/api/v1/news/attachment/`,
       form,
       {
         headers: {

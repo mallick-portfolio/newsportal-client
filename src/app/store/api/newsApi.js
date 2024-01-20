@@ -5,7 +5,7 @@ export const newsApi = createApi({
   reducerPath: "newsApi",
   tagTypes: ["category", "post"],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.NEXT_PUBLIC_API_URL}`,
+    baseUrl: `https://newsportal-hdb5.onrender.com/api/v1`,
   }),
 
   endpoints: (builder) => ({

@@ -1,6 +1,6 @@
 export const getCategories = async () => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/news/public/category/`,
+    `https://newsportal-hdb5.onrender.com/api/v1/news/public/category/`,
     {
       next: { revalidate: 10 },
     }

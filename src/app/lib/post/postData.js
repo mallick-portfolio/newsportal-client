@@ -3,7 +3,7 @@ import config from "../utils/config";
 
 export const getPosts = async (query) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/news/public/${query ? query : ""}`,
+    `https://newsportal-hdb5.onrender.com/api/v1/news/public/${query ? query : ""}`,
     {
       next: { revalidate: 10 },
     }
@@ -15,7 +15,7 @@ export const getPosts = async (query) => {
 };
 export const getById = async (id) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/news/public/${id}/`,
+    `https://newsportal-hdb5.onrender.com/api/v1/news/public/${id}/`,
     {
       next: { revalidate: 10 },
     }
@@ -27,7 +27,7 @@ export const getById = async (id) => {
 };
 export const addRating = async (id, data) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/news/public/${id}/rating/`,
+    `https://newsportal-hdb5.onrender.com/api/v1/news/public/${id}/rating/`,
     {
       method: "POST",
       body: JSON.stringify(data),
