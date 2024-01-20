@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useUserRegisterMutation } from "@/app/store/api/accountApi";
 import { toast } from "react-toastify";
-import { redirect, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
@@ -87,7 +87,7 @@ const Register = () => {
   });
   const { errors, values, handleChange, touched, handleSubmit } = formik;
   if (user?.id && Cookies.get("auth_token")) {
-    redirect("/dashboard");
+    router.push("/dashboard");
   }
 
   return (

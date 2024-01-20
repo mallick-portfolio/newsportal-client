@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useUserLoginMutation } from "@/app/store/api/accountApi";
 import { toast } from "react-toastify";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useSelector } from "react-redux";
@@ -60,7 +60,7 @@ const Login = () => {
   });
   const { errors, values, handleChange, touched, handleSubmit } = formik;
   if (user?.id && Cookies.get("auth_token")) {
-    redirect("/dashboard");
+    router.push("/dashboard");
   }
   return (
     <div className="h-screen flex justify-center items-center">
