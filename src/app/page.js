@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import Header from "./components/shared/Header";
 import {
@@ -31,18 +32,10 @@ export default async function Home() {
               <CardBody>
                 <div className="flex justify-center">
                   {posts?.[0]?.image_url ? (
-                    <Image
-                      width={500}
-                      height={200}
-                      // className="w-full h-full"
-                      quality={70}
-                      priority={true}
-                      placeholder="empty"
+                    <img
+                      className="w-full h-full"
                       alt="NextUI Fruit Image with Zoom"
-                      src={
-                        process.env.NEXT_PUBLIC_IMAGE_URL +
-                        posts?.[0]?.image_url
-                      }
+                      src={posts?.[0]?.image_url}
                     />
                   ) : (
                     ""

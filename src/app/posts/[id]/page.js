@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import PostComment from "@/app/components/post/PostComment";
 import Header from "@/app/components/shared/Header";
 import { getById, getPosts } from "@/app/lib/post/postData";
@@ -23,12 +24,7 @@ const PostDetails = async ({ params }) => {
       <Header />
       <div className="container mt-12">
         <h2 className="text-2xl my-4">{post?.title}</h2>
-        <Image
-          width={1000}
-          height={500}
-          src={process.env.NEXT_PUBLIC_IMAGE_URL + post?.image_url}
-          alt=""
-        />
+        <img className="w-full h-full" src={post?.image_url} alt="" />
         <Chip className="mt-5" variant="solid" color="danger">
           Category #{post?.category?.name}
         </Chip>
@@ -47,12 +43,10 @@ const PostDetails = async ({ params }) => {
               >
                 <Link href={`/posts/${post.id}`}>
                   <CardHeader className="flex flex-col">
-                    <Image
-                      width={100}
-                      height={100}
+                    <img
                       alt="Card background"
                       className="w-full h-full object-cover"
-                      src={config.image_domain + post?.image_url}
+                      src={post?.image_url}
                     />
                     <p className="mt-5 uppercase text-large font-bold">
                       {post?.title}

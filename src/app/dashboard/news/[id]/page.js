@@ -42,8 +42,9 @@ const PostDetails = () => {
           </div>
           <div className="my-8">
             <img
-              src={process.env.NEXT_PUBLIC_IMAGE_URL + data?.data?.image_url}
+              className="w-full h-full"
               alt="Post details"
+              src={data?.data?.image_url}
             />
             <h2 className="text-3xl font-semibold my-5">{data?.data?.title}</h2>
             <div>{data?.data?.description}</div>

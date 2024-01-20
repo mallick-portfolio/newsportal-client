@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Card, CardBody, Chip, Tab, Tabs } from "@nextui-org/react";
@@ -32,12 +33,11 @@ const SidebarPosts = () => {
               {posts?.slice(0, 4)?.map((post) => (
                 <div key={post?.id} className="flex gap-5 my-2">
                   <div className="w-1/4">
-                    <Image
+                    <img
                       className="w-full rounded-md"
-                      width={200}
-                      height={150}
+
                       alt="NextUI Fruit Image with Zoom"
-                      src={process.env.NEXT_PUBLIC_IMAGE_URL + post?.image_url}
+                      src={post?.image_url}
                     />
                   </div>
                   <div className="3/4">

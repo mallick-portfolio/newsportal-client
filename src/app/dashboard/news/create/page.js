@@ -38,6 +38,7 @@ const NewsPage = () => {
     title: "",
     category: null,
     description: "",
+    image_url: "",
   };
 
   // validation schema
@@ -45,6 +46,7 @@ const NewsPage = () => {
     title: yup.string().required("Post title must required"),
     category: yup.number().required("Category is required"),
     description: yup.string().required("Description is required"),
+    image_url: yup.string().required("Image url is required"),
   });
 
   // api call
@@ -61,12 +63,8 @@ const NewsPage = () => {
   // submit handler
   const onSubmit = async (data) => {
     // data["description"] = description;
-    data["image_url"] = image;
-    if (!image || image == "") {
-      setIsImage(false);
-    } else {
-      await handleCreatePost(data);
-    }
+    // data["image_url"] = image;
+    await handleCreatePost(data);
   };
 
   const onImageChangeCapture = async (e) => {
@@ -197,13 +195,12 @@ const NewsPage = () => {
               setDescription={setDescription}
               description={description}
             /> */}
-            <div className="my-4">
+            {/* <div className="my-4">
               <h3>Upload feature image</h3>
               <p className="text-danger-500 my-2">
                 {!isImage && "Image must required"}
               </p>
               {image ? (
-                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   width={50}
                   height={50}
@@ -229,7 +226,23 @@ const NewsPage = () => {
               >
                 Upload
               </Button>
-            </div>
+            </div> */}
+            <Input
+              value={values.image_url}
+              variant="bordered"
+              name="image_url"
+              onChange={handleChange}
+              isInvalid={errors.image_url && touched.image_url}
+              type="text"
+              color={
+                errors.image_url && touched.image_url ? "danger" : "default"
+              }
+              label="Post image url"
+              placeholder="Enter your post image url"
+              errorMessage={`${
+                errors.image_url && touched.image_url ? errors.image_url : ""
+              }`}
+            />
             <Button
               type="submit"
               color="success"

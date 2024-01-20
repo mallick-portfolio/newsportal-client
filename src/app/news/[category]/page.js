@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Footer from "@/app/components/shared/Footer";
 import Header from "@/app/components/shared/Header";
 import { getPosts } from "@/app/lib/post/postData";
@@ -20,14 +21,10 @@ const NewsByCategory = async ({ params }) => {
                 <CardBody>
                   <div className="flex flex-col gap-5 my-2">
                     <div className="">
-                      <Image
+                      <img
                         className="w-full rounded-md"
-                        width={200}
-                        height={150}
                         alt="NextUI Fruit Image with Zoom"
-                        src={
-                          process.env.NEXT_PUBLIC_IMAGE_URL + post?.image_url
-                        }
+                        src={post?.image_url}
                       />
                     </div>
                     <p className="text-primary-500">#{post?.category?.name}</p>

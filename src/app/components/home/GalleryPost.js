@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Card, CardBody, Chip, Tab, Tabs } from "@nextui-org/react";
@@ -35,15 +36,10 @@ const GalleryPost = () => {
                     <CardBody>
                       <div className="flex flex-col gap-5 my-2">
                         <div className="">
-                          <Image
-                            className="w-full rounded-md"
-                            width={200}
-                            height={150}
+                          <img
+                            className="w-full rounded-md h-auto"
                             alt="NextUI Fruit Image with Zoom"
-                            src={
-                              process.env.NEXT_PUBLIC_IMAGE_URL +
-                              post?.image_url
-                            }
+                            src={post?.image_url}
                           />
                         </div>
                         <p className="text-primary-500">

@@ -36,11 +36,10 @@ export default function PostRow() {
       <TableRow key={post?.id}>
         <TableCell>{post?.id}</TableCell>
         <TableCell>
-          <Image
-            width={100}
-            height={10}
+          <img
+        
             className="max-w-12 rounded-md"
-            src={process.env.NEXT_PUBLIC_IMAGE_URL + post?.image_url}
+            src={post?.image_url}
             alt=""
           />
         </TableCell>
